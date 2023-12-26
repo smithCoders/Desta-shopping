@@ -21,12 +21,18 @@ const userSchema=Schema({
           validate: [validator.isEmail, "Invalid email address."],
           lowercase:true
     },
-    phoneNumber:{
-        type:String,
-        required:[true,"please provide your phone number"],
-        unique:[true,"phone number already used"]
-
+   phoneNumber: {
+    type: String,
+    required: [true, 'Please provide your phone number.'],
+    unique: [true, 'Phone number already used.'],
+    validate: {
+      validator: function (value) {
+        //  /^\d{10}$/ for a 10-digit phone number.
+        return /^\d{10}$/.test(value);
+      },
+      message: 'Please enter a valid 10-digit phone number.',
     },
+  },
     password:{
         type:String,
         required:[function(){
@@ -58,7 +64,7 @@ const userSchema=Schema({
     cart:[String],
     roles:{
         type:String,
-        enum:["user","admin","shopper"],
+        enum:["user","admin"],
         default:"user"
     },
     active:{

@@ -1,8 +1,8 @@
 const express = require("express");
 const cookieParser=require("cookie-parser");
-const bodyParser=require("body-parser");
 const fileUpload=require("express-fileupload");
 const morgan=require("morgan")
+const cors=require("cors")
 const AppError=require("./src/utils/AppError");
 const error=require("./src/middleware/error")
 const userRouter=require("./src/Routes/userRoute")
@@ -14,7 +14,8 @@ if(process.env.NODE_ENV==="development"){
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(cors());
+app.use("/",express.static("public/img"));
 app.use(fileUpload({
   useTempFiles:true,
   

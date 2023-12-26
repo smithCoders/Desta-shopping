@@ -3,34 +3,28 @@ const catchAsync=require("../utils/catchAsync");
 const AppError=require("../utils/AppError");
 const User=require("../model/userModel")
 const  jwt=require("jsonwebtoken");
-const logger=require("../utils/logger")
+const logger=require("../utils/logger");
+const tokens=require("../utils/jwt")
 // genearte OTP.
 exports.generateOTP=()=>{
     return Math.floor(100_000+Math.random()*900_000).toString()
 }
-const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIREs_IN,
-  });
-};
-
-const generateUniqueUsername = (firstName, lastName) => {
-
-  const randomString = Math.random().toString(36).substring(7);
-  return `${firstName.toLowerCase()}_${lastName.toLowerCase()}_${randomString}`;
-};
-
 exports.signup = catchAsync(async (req, res, next) => {
   const { firstName, lastName, email, phoneNumber, password, passwordConfirm, role } = req.body;
 
   // Check if the email is unique
   const existingUser = await User.findOne({ email });
+   // logger 
+  if(!existingUser){
+    logger.info(`new user signup with email ${email} sucesful`)
+  }
+else{
+  logger.warn(`new user signup  with email ${email} is failed`)
+}
   if (existingUser) {
     return next(new AppError("User already exists", 400));
   }
-  const userName=generateUniqueUsername(firstName,lastName)
-
-  // Assuming email, phoneNumber, and other fields are defined as unique in your schema
+ 
   const newUser = await User.create({
     firstName,
     lastName,
@@ -41,8 +35,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     role,
   });
 
-  const token = signToken(newUser._id);
-  res.status(201).json({ status: "success", data: { newUser }, token });
+ tokens.createSendToken(newUser,200,res)
 });
 // login
 exports.login = catchAsync(async (req, res, next) => {
@@ -70,16 +63,11 @@ else{
 
 
   if (!user || !(await user.comparePassword(password, user.password))) {
-    // Instead of revealing specific details, provide a more generic message
     return next(new AppError("Invalid credentials. Please check your email, phone number, or password.", 401));
   }
 
   // If everything is okay, send the token to the client
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: "success",
-    token,
-  });
+tokens.createSendToken(user,200,res)
 });
 // protect route middleware.
 exports.protect=catchAsync(async(req,res,next)=>{
@@ -88,6 +76,7 @@ exports.protect=catchAsync(async(req,res,next)=>{
     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
         token=req.headers.authorization.split(" ")[1]
     }
+    console.log(token)
     if(!token){
         return next(new AppError("you are not logged in please login to get access",401))
     }
