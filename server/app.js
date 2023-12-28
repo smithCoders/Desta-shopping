@@ -9,6 +9,7 @@ const AppError=require("./src/utils/AppError");
 const error=require("./src/middleware/error")
 const userRouter=require("./src/Routes/userRoute");
 const productRouter=require("./src/Routes/productRoute");
+const sellerRouter=require("./src/Routes/sellerRoute");
 
 
 if(process.env.NODE_ENV==="development"){
@@ -33,6 +34,7 @@ if(process.env.NODE_ENV==="production"){
 // Routes.
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/products",productRouter)
+app.use("/api/v1/seller",sellerRouter)
 // return error if route is not found.
 app.all("*",(req,res,next)=>{
   next(new AppError(`Can't find ${req.originalUrl} on this server!`,404))

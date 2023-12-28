@@ -64,7 +64,7 @@ const userSchema=Schema({
     cart:[String],
     roles:{
         type:String,
-        enum:["user","admin"],
+        enum:["user","admin","seller"],
         default:"user"
     },
     active:{
