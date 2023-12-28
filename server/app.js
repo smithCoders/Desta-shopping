@@ -1,12 +1,15 @@
 const express = require("express");
+
 const cookieParser=require("cookie-parser");
 const fileUpload=require("express-fileupload");
 const morgan=require("morgan")
 const cors=require("cors")
+const app=express()
 const AppError=require("./src/utils/AppError");
 const error=require("./src/middleware/error")
-const userRouter=require("./src/Routes/userRoute")
-const app = express();
+const userRouter=require("./src/Routes/userRoute");
+const productRouter=require("./src/Routes/productRoute");
+
 
 if(process.env.NODE_ENV==="development"){
   app.use(morgan("dev"))
@@ -29,6 +32,7 @@ if(process.env.NODE_ENV==="production"){
 
 // Routes.
 app.use("/api/v1/users",userRouter)
+app.use("/api/v1/products",productRouter)
 // return error if route is not found.
 app.all("*",(req,res,next)=>{
   next(new AppError(`Can't find ${req.originalUrl} on this server!`,404))
