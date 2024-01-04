@@ -2,26 +2,7 @@ const catchAsync=require("../utils/catchAsync");
 const AppError=require("../utils/AppError");
 const Product=require("../model/productSchema");
 const factory=require("./factoryHandler");
-const redis=require("redis");
-const redisURL="redis://127.0.0.1:6379"
-// const client=redis.createClient(redisURL);
-const client = redis.createClient({
-  legacyMode: true,
-  PORT: 5001
-})
-client.connect().catch(console.error)
-
-client.on('connect', () => {
-  console.log('Connected to Redis');
-});
-
-client.on('error', (err) => {
-  console.error('Redis Error:', err);
-});
-
-client.on('end', () => {
-  console.log('Connection to Redis closed');
-});
+const redis=require("../cache/redisConfig");
 
 
 exports.fullTextSearch = catchAsync(async (req, res, next) => {
@@ -43,20 +24,27 @@ const result = await Product.find({ $text: { $search: filteredQuery } });
     data: { result }
   });
 });
-
 exports.AddProduct=factory.createOne(Product);
-
 // exports.getAllProduct=factory.getAll(Product);
 exports.getAllProducts=catchAsync(async(req,res,next)=>{
+ const keyPrefix="products";
+ const params=req.query;
+  // check if data is cached.
+  const cachProduct=await redis.getCach(keyPrefix,params)
+// return cach data.
+if(cachProduct){
+  console.log("from cach")
+  return res.status(200).json({status:"sucess",data:{cachProduct}})
+}
+// if no cached data , fetch from DB
    const product= await Product.find();
+  //  set it to cach.
+  await redis.setCach(keyPrefix,params,product)
       if(!product){
         return next(new AppError("product not found",404))
       }
+      console.log("from DB")
       res.status(200).json({status:"sucess",data:{product}})
-      
- 
-
-
 
 })
 exports.getOneProduct=factory.getOne(Product);

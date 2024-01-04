@@ -10,11 +10,13 @@ const error=require("./src/middleware/error")
 const userRouter=require("./src/Routes/userRoute");
 const productRouter=require("./src/Routes/productRoute");
 const sellerRouter=require("./src/Routes/sellerRoute");
-
+const  redis=require("./src/cache/redisConfig");
 
 if(process.env.NODE_ENV==="development"){
   app.use(morgan("dev"))
 }
+// connect  redis.
+redis.connectRedis()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
