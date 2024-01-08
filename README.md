@@ -26,7 +26,7 @@ Express Shop is a feature-rich e-commerce backend built with Node.js, Express, M
 
 ### Prerequisites
 
-- Node.js and npm installed.
+- Node.js and npm installed
 - MongoDB and Redis databases set up.
 
 ### Installation
