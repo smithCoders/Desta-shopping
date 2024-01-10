@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.6% </span>
+                <span class="strong">80.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>112/125</span>
+                <span class='fraction'>101/125</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.6% </span>
+                <span class="strong">80.8% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>112/125</span>
+                <span class='fraction'>101/125</span>
             </div>
         
             
@@ -216,6 +216,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -223,6 +225,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -231,9 +234,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -274,17 +279,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -339,17 +339,17 @@ const userSchema=Schema({
     required: [true, 'Please provide your phone number.'],
     unique: [true, 'Phone number already used.'],
     validate: {
-      validator: function (value) {
-        //  /^\d{10}$/ for a 10-digit phone number.
-        return /^\d{10}$/.test(value);
+      validator: <span class="fstat-no" title="function not covered" >function (value) {</span>
+<span class="cstat-no" title="statement not covered" >        //  /^\d{10}$/ for a 10-digit phone number.</span>
+<span class="cstat-no" title="statement not covered" >        return /^\d{10}$/.test(value);</span>
       },
       message: 'Please enter a valid 10-digit phone number.',
     },
   },
     password:{
         type:String,
-        required:[function(){
-            return this.isNew<span class="branch-0 cbranch-no" title="branch not covered" > || this.isModified("password")</span>
+        required:[<span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >            return this.isNew || this.isModified("password")</span>
         },"password is required"],
         minlength:[7,"password must be greather than 7 character"],
         select:false
@@ -357,12 +357,12 @@ const userSchema=Schema({
     },
     passwordConfirm:{
         type:String,
-        required:[function(){
-            return this.isModified("password")
+        required:[<span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >            return this.isModified("password")</span>
         },"please confirm your password"],
         validate:{
-            validator:function(el){
-                return !this.isNew || el===this.password
+            validator:<span class="fstat-no" title="function not covered" >function(el){</span>
+<span class="cstat-no" title="statement not covered" >                return !this.isNew || el===this.password</span>
             },
             message:"password isn't match"
         }
@@ -403,12 +403,12 @@ const userSchema=Schema({
 &nbsp;
 // hashing password.
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) <span class="branch-0 cbranch-no" title="branch not covered" >return next;</span>
-&nbsp;
-  try {
-    this.password = await bcrypt.hash(this.password, 12);
-    this.passwordConfirm = undefined;
-  } <span class="branch-0 cbranch-no" title="branch not covered" >catch (err) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!this.isModified("password")) return next;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    this.password = await bcrypt.hash(this.password, 12);</span>
+<span class="cstat-no" title="statement not covered" >    this.passwordConfirm = undefined;</span>
+<span class="cstat-no" title="statement not covered" >  } catch (err) {</span>
 <span class="cstat-no" title="statement not covered" >    console.error(err);</span>
 <span class="cstat-no" title="statement not covered" >    return next(err);</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
@@ -442,7 +442,7 @@ module.exports=User</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-08T00:48:41.797Z
+                at 2024-01-08T09:44:25.799Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
