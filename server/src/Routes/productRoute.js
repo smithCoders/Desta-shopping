@@ -8,7 +8,7 @@ router.route('/').get(productController.getAllProducts);
 router.route('/:id').get(productController.getOneProduct)
 router.route("/full-text-search/:query").get(productController.fullTextSearch)
 // Protected routes for sellers
-router.use(authController.protect);
+// router.use(authController.protect);
 
 // Seller-specific routes
 router.route('/create').post(productController.AddProduct); 

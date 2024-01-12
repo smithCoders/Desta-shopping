@@ -76,10 +76,10 @@ const userSchema=Schema({
     passwordChangedAt:Date,
     passwordResetToken:String,
     PasswordResetTokenExpires:Date,
-
-
-
-
+      accessToken: String,
+    refreshToken: String,
+    accessTokenExpires: Date,
+    refreshTokenExpires: Date,
 },{
     timestamps:true,
     toJSON:{virtuals:true},
@@ -115,6 +115,11 @@ userSchema.methods.passwordResetGenerator=async function(){
     // generate   reset token.
     const resetToken=crypto.randomBytes(32).toString("hex");
     this.passwordResetToken=crypto.createHash("sha256").update(resetToken).digest("hex");
+    // clear tokens.
+    this.accessToken=undefined;
+    this.refreshToken=undefined;
+    this.accessTokenExpires=undefined;
+    this.refreshTokenExpires=undefined
     // expire time.
     this.PasswordResetTokenExpires=Date.now()+60*30*1000;
     return resetToken;

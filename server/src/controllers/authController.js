@@ -4,7 +4,9 @@ const AppError=require("../utils/AppError");
 const User=require("../model/userModel")
 const  jwt=require("jsonwebtoken");
 const logger=require("../utils/logger");
-const tokens=require("../utils/jwt")
+const jwtTokens=require("../utils/jwt")
+const  tokens=require("../utils/token");
+const { cli } = require('winston/lib/winston/config');
 // genearte OTP.
 exports.generateOTP=()=>{
     return Math.floor(100_000+Math.random()*900_000).toString()
@@ -35,7 +37,7 @@ else{
     role,
   });
 
- tokens.createSendToken(newUser,200,res)
+ jwtTokens.createSendToken(newUser,200,res)
 });
 // login
 exports.login = catchAsync(async (req, res, next) => {
@@ -47,7 +49,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // Check if user exists and password is correct
   const user = await User.findOne({ $or: [{ email: emailorPhone }, { phoneNumber: emailorPhone }] }).select("+password");
-// Log the login attempt
+// Log the login attempt.
 if(user){
   if(user.comparePassword(password,user.password)){
     logger.info(`Login attempt for ${user.email} successful`);
@@ -66,32 +68,64 @@ else{
     return next(new AppError("Invalid credentials. Please check your email, phone number, or password.", 401));
   }
 
-  // If everything is okay, send the token to the client
-tokens.createSendToken(user,200,res)
+  
+  
+  // // send access token as cookie.
+  // res.cookie("acess-token",accessToken,{
+  //   httpOnly:true,
+  //   secure:process.env.NODE_ENV="production",
+  //   maxAge:30*60*1000
+
+  // })
+  
+jwtTokens.createSendToken(user,200,res)
+
 });
-// protect route middleware.
-exports.protect=catchAsync(async(req,res,next)=>{
-    // 1. check if token exist.
+// protect route middleware.clear
+
+exports.authorize = async (req, res, next) => {
+  try {
+    // 1. Check if the authorization header is present
     let token;
-    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
-        token=req.headers.authorization.split(" ")[1]
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    } else if (req.cookies.accessToken) {
+      token = req.cookies.accessToken;
     }
- 
-    if(!token){
-        return next(new AppError("you are not logged in please login to get access",401))
-    }
-    // 2. verify token.
-    const decoded=await promisify(jwt.verify)(token,process.env.JWT_SECRET)
-    // 3. check if user still exist.
-    const currentUser=await User.findById(decoded.id)
-    if(!currentUser){
-        return next(new AppError("the user belonging to this token does not exist",401))
+    
+    if (!token) {
+      return next(
+        new AppError("you are not logged in please login to get access", 401)
+      );
     }
 
-    // grant access to protected route.
-    req.user=currentUser;
-    next()
-})
+    // 3. Verify the token using the correct secret
+    const decoded = await promisify(jwt.verify)(
+      token,
+      process.env.ACCESS_TOKEN_SECRET
+    );
+
+   
+
+    // 4. Check if the user exists
+    const currentUser = await User.findById(decoded.user);
+    if (!currentUser) {
+      return next(new AppError('Unauthorized - Invalid user', 401));
+    }
+
+    // 5. Attach the user information to the request
+    req.user = currentUser;
+
+    next();
+  } catch (err) {
+    console.log("Error:", err);
+    return next(new AppError('Unauthorized - Invalid token', 401));
+  }
+};
+
 
 // restrict route middleware.
 exports.restrictTo=(...roles)=>{
@@ -104,3 +138,54 @@ exports.restrictTo=(...roles)=>{
     }
 }
 
+exports.getRefreshToken=catchAsync(async(req,res,next)=>{
+  const refreshToken=req.cookies.refreshToken;
+
+  if(!refreshToken){
+    return next(new AppError("please provide a refresh token",400))
+  }
+  // verify refresh token.
+  const decoded=tokens.verifyRefreshToken(refreshToken)
+
+  // check if user exist.
+  const currentUser=await User.findById(decoded.user)
+
+  if(!currentUser ){
+    return next(new AppError("the user belonging to this token does not exist",401))
+}
+// check if refresh token is valid.
+
+if (currentUser.refreshToken !== refreshToken) {
+  return next(new AppError("Invalid refresh token", 401));
+}
+
+// generate new acess token.
+const accessToken=tokens.generateAccessToken(currentUser)
+// send new access token as cookie.
+res.cookie("acessToken",accessToken,{
+  httpOnly:true,
+  maxAge:30*60*1000,
+  secure:process.env.NODE_ENV="production"
+})
+res.status(200).json({
+  status:"sucess",
+  accessToken
+})
+}
+);
+// logout.
+exports.logOut=catchAsync(async(req,res,next)=>{
+  const  user=req.user;
+  if(!user){
+    return next(new AppError("you are not logged in please login to get access",401))
+
+  }
+  // clear access token.
+  res.clear("accessToken");
+res.status(200).json({
+  status:"sucess",
+
+})
+
+
+})
