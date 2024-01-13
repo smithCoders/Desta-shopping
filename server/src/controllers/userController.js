@@ -1,8 +1,7 @@
 const User=require("../model/userModel");
 const catchAsync=require("../utils/catchAsync");
 const AppError=require("../utils/AppError");
-
-
+const authController=require("./authController")
 const updateObject = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {
@@ -53,3 +52,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
+// signup user.
+exports.userSignup=authController.signup(User);
+exports.login=authController.login(User)

@@ -3,8 +3,6 @@ const AppError=require("../utils/AppError");
 const Product=require("../model/productSchema");
 const factory=require("./factoryHandler");
 const redis=require("../cache/redisConfig");
-
-
 exports.fullTextSearch = catchAsync(async (req, res, next) => {
   const { query } = req.params;
 //  Remove stop words from the query before searching:

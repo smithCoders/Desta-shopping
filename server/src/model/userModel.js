@@ -3,7 +3,7 @@ const  validator=require("validator")
 const bcrypt=require("bcryptjs");
 const crypto=require("crypto")
 const{Schema,model}=mongoose;
-const userSchema=Schema({
+const userSchema= new Schema({
     firstName:{
         type:String,
       required: [true, "Please enter your first name."],
@@ -22,16 +22,16 @@ const userSchema=Schema({
           lowercase:true
     },
    phoneNumber: {
-    type: String,
-    required: [true, 'Please provide your phone number.'],
+    type: Number,
+    required: [false, 'Please provide your phone number.'],
     unique: [true, 'Phone number already used.'],
-    validate: {
-      validator: function (value) {
-        //  /^\d{10}$/ for a 10-digit phone number.
-        return /^\d{10}$/.test(value);
-      },
-      message: 'Please enter a valid 10-digit phone number.',
-    },
+    // validate: {
+    //   validator: function (value) {
+    //     //  /^\d{10}$/ for a 10-digit phone number.
+    //     return /^\\d{10}$/.test(value);
+    //   },
+    //   message: 'Please enter a valid 10-digit phone number.',
+    // },
   },
     password:{
         type:String,
@@ -63,10 +63,8 @@ const userSchema=Schema({
     order:[String],
     cart:[String],
     roles:{
-        type:String,
-        enum:["user","admin","seller"],
-        default:"user"
-    },
+      type:String,
+      deafult:"user"},
     active:{
         type:Boolean,
         default:true,

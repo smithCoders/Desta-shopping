@@ -1,5 +1,6 @@
 const authController = require('../controllers/authController');
 const productController = require('../controllers/productController');
+const sellerController=require("../controllers/sellerController")
 const express = require('express');
 const router = express.Router();
 
@@ -8,7 +9,7 @@ router.route('/').get(productController.getAllProducts);
 router.route('/:id').get(productController.getOneProduct)
 router.route("/full-text-search/:query").get(productController.fullTextSearch)
 // Protected routes for sellers
-// router.use(authController.protect);
+router.use(sellerController.authorize)
 
 // Seller-specific routes
 router.route('/create').post(productController.AddProduct); 

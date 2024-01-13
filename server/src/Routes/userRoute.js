@@ -5,8 +5,8 @@ const userController=require("../controllers/userController");
 const multer=require("../utils/multer")
 const token=require("../utils/token")
 
-router.route("/signup").post(authController.signup);
-router.route("/login").post(authController.login);
+router.route("/signup").post(userController.userSignup);
+router.route("/login").post(userController.login);
 
 router.use(authController.authorize)
 router.route("/").get(userController.getUser)

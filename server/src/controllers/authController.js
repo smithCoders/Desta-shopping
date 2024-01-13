@@ -6,49 +6,51 @@ const  jwt=require("jsonwebtoken");
 const logger=require("../utils/logger");
 const jwtTokens=require("../utils/jwt")
 const  tokens=require("../utils/token");
-const { cli } = require('winston/lib/winston/config');
 // genearte OTP.
 exports.generateOTP=()=>{
     return Math.floor(100_000+Math.random()*900_000).toString()
 }
-exports.signup = catchAsync(async (req, res, next) => {
-  const { firstName, lastName, email, phoneNumber, password, passwordConfirm, role } = req.body;
+exports.signup =(Model,option={})=> catchAsync(async (req, res, next) => {
+  const{roles,otherField}=option
+  const { firstName, lastName, email,  password, passwordConfirm,role,...extraField} = req.body;
 
   // Check if the email is unique
-  const existingUser = await User.findOne({ email });
+  const existingemail = await Model.findOne({ email });
    // logger 
-  if(!existingUser){
+  if(!existingemail){
     logger.info(`new user signup with email ${email} sucesful`)
   }
 else{
   logger.warn(`new user signup  with email ${email} is failed`)
 }
-  if (existingUser) {
+  if (existingemail) {
     return next(new AppError("User already exists", 400));
   }
  
-  const newUser = await User.create({
+  const newUser = await Model.create({
     firstName,
     lastName,
     email,
-    phoneNumber,
     password,
     passwordConfirm,
-    role,
+    [roles]:role,
+    ...otherField,
+    ...extraField
+  
   });
 
  jwtTokens.createSendToken(newUser,200,res)
 });
 // login
-exports.login = catchAsync(async (req, res, next) => {
+exports.login =Model=> catchAsync(async (req, res, next) => {
   // Validate input
   const { emailorPhone, password } = req.body;
   if (!emailorPhone || !password) {
     return next(new AppError("Please provide both email or phone number and password.", 400));
   }
 
-  // Check if user exists and password is correct
-  const user = await User.findOne({ $or: [{ email: emailorPhone }, { phoneNumber: emailorPhone }] }).select("+password");
+  // Check if user exists and password is correct.
+  const user = await Model.findOne({ $or: [{ email: emailorPhone }, { phoneNumber: emailorPhone }] }).select("+password");
 // Log the login attempt.
 if(user){
   if(user.comparePassword(password,user.password)){
@@ -69,7 +71,6 @@ else{
   }
 
   
-  
   // // send access token as cookie.
   // res.cookie("acess-token",accessToken,{
   //   httpOnly:true,
@@ -83,7 +84,7 @@ jwtTokens.createSendToken(user,200,res)
 });
 // protect route middleware.clear
 
-exports.authorize = async (req, res, next) => {
+exports.authorize =Model=> catchAsync( async (req, res, next) => {
   try {
     // 1. Check if the authorization header is present
     let token;
@@ -107,11 +108,11 @@ exports.authorize = async (req, res, next) => {
       token,
       process.env.ACCESS_TOKEN_SECRET
     );
-
+console.log("decoded",decoded)
    
 
     // 4. Check if the user exists
-    const currentUser = await User.findById(decoded.user);
+    const currentUser = await Model.findById(decoded.user);
     if (!currentUser) {
       return next(new AppError('Unauthorized - Invalid user', 401));
     }
@@ -124,10 +125,8 @@ exports.authorize = async (req, res, next) => {
     console.log("Error:", err);
     return next(new AppError('Unauthorized - Invalid token', 401));
   }
-};
+});
 
-
-// restrict route middleware.
 exports.restrictTo=(...roles)=>{
     return (req,res,next)=>{
       console.log(req.user)
@@ -137,6 +136,7 @@ exports.restrictTo=(...roles)=>{
         next()
     }
 }
+
 
 exports.getRefreshToken=catchAsync(async(req,res,next)=>{
   const refreshToken=req.cookies.refreshToken;
