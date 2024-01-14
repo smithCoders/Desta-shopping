@@ -28,21 +28,10 @@ const orderSchema = Schema({
     shippingAddress: String,
     shippingBill: String,
     totalPrice: {
-        type: String,
-        required: [true, 'Please enter the total price.'],
-        validate: {
-            validator: function (value) {
-                // Calculate the expected total price based on product prices and quantity.
-                const expectedTotalPrice = this.quantity * this.product.price;
-                // Convert expectedTotalPrice to string for comparison
-                const expectedTotalPriceString = expectedTotalPrice.toFixed(2);
-
-                // Check if the provided total price matches the calculated total price
-                return value === expectedTotalPriceString;
-            },
-            message: 'Total price does not match the calculated price based on product prices and quantity.',
-        },
+    type: Number,
+    required: [true, 'Please enter the total price.'],
     },
+
     status: {
         type: String,
         enum: ['pending', 'shipped', 'delivered',"processing"],

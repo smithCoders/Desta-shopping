@@ -9,11 +9,10 @@ const  cartSchema=new Schema({
         type:Schema.Types.ObjectId,
         ref:"Product"
     },
-    qunatity:{
-        type:Number,
-        default:1
-    
-    }
+    quantity:{
+    type:Number,
+    default:1
+}
 });
 const Cart=model("Cart",cartSchema);
 module.exports=Cart

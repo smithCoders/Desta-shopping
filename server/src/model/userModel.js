@@ -60,8 +60,14 @@ const userSchema= new Schema({
     default: "default-photo.jpg", // default photo
   },
     address:String,
-    order:[String],
-    cart:[String],
+  order: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Order'
+  }],
+    cart:[{
+      type:Schema.Types.ObjectId,
+      ref:'Cart'
+    }],
     roles:{
       type:String,
       deafult:"user"},

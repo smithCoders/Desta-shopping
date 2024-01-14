@@ -7,6 +7,6 @@ const router=express.Router();
 router.use(userController.authorize);
 router.route("/order-History").get(orderController.getOrderHistory)
 router.route("/place-order").post(orderController.placeOrder)
-router.route("/track-order/:orderId").get(orderController.getOrderHistory)
-router.route("/place-order/:orderId").patch(orderController.orderStatus)
+router.route("/track-order/:orderId").get(orderController.trackOrderStatus)
+router.route("/update-orderStatus/:orderId").patch(orderController.orderStatus)
 module.exports=router;
