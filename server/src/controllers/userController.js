@@ -1,7 +1,8 @@
 const User=require("../model/userModel");
 const catchAsync=require("../utils/catchAsync");
 const AppError=require("../utils/AppError");
-const authController=require("./authController")
+const authController=require("./authController");
+const factory=require("./factoryHandler")
 const updateObject = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {
@@ -10,21 +11,10 @@ const updateObject = (obj, ...allowedFields) => {
   return newObj;
 };
 // get-user.
-exports.getUser=catchAsync(async(req,res,next)=>{
-  const user=await User.findById(req?.user?.id);
-  if(!user){
-    return next(new AppError("No user found with that ID",404))
-  }
-  res.status(200).json({
-    status:"success",
-    data:{
-      user
-    }
-  })
-})
-
+// exports.getUser=factory.getOne(User)
+exports.getAllUser=factory.getAll(User)
 // update me.
-exports.updateMe = catchAsync(async (req, res, next) => {
+exports.updateProfile = catchAsync(async (req, res, next) => {
   // throw error when the user tries to update the password.
   if (req.body.password || req.body.passwordConfirm) {
     return next(new AppError("To update your password, please use /updatePassword route", 400));
@@ -52,6 +42,15 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
+// get profile.
+exports.getProfile=catchAsync(async(req,res,next)=>{
+  const userProfile= await User.findById(req.user?._id);
+  res.status(200).json({
+    status:"sucess",
+    data:{user:userProfile}
+  })
+})
 // signup user.
 exports.userSignup=authController.signup(User);
-exports.login=authController.login(User)
+exports.login=authController.login(User);
+exports.authorize=authController.authorize(User);

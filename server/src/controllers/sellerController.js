@@ -9,5 +9,7 @@ const authController=require("./authController")
 exports.signup=authController.signup(Seller,{roles:"seller",otherField:{shopName:"",shopDescription:""}})
 exports.login=authController.login(Seller)
 exports.authorize=authController.authorize(Seller)
+exports.getSeller=factory.getOne(Seller);
+exports.getAllSellers=factory.getAll(Seller);
 // restrict route middleware.
 

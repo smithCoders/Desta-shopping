@@ -4,7 +4,7 @@ const catchAsync=require("../utils/catchAsync");
 const AppError=require("../utils/AppError");
 // connect to redis server.
 const client=new Redis({
-    port:5001,
+    port:5002,
   
 });
 async function connectRedis(){

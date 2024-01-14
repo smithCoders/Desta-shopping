@@ -22,7 +22,7 @@ const userSchema= new Schema({
           lowercase:true
     },
    phoneNumber: {
-    type: Number,
+    type: String,
     required: [false, 'Please provide your phone number.'],
     unique: [true, 'Phone number already used.'],
     // validate: {

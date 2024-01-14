@@ -108,7 +108,7 @@ exports.authorize =Model=> catchAsync( async (req, res, next) => {
       token,
       process.env.ACCESS_TOKEN_SECRET
     );
-console.log("decoded",decoded)
+
    
 
     // 4. Check if the user exists
@@ -119,7 +119,6 @@ console.log("decoded",decoded)
 
     // 5. Attach the user information to the request
     req.user = currentUser;
-
     next();
   } catch (err) {
     console.log("Error:", err);
@@ -136,7 +135,6 @@ exports.restrictTo=(...roles)=>{
         next()
     }
 }
-
 
 exports.getRefreshToken=catchAsync(async(req,res,next)=>{
   const refreshToken=req.cookies.refreshToken;

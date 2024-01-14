@@ -10,6 +10,7 @@ const error=require("./src/middleware/error")
 const userRouter=require("./src/Routes/userRoute");
 const productRouter=require("./src/Routes/productRoute");
 const sellerRouter=require("./src/Routes/sellerRoute");
+const orderRouter=require("./src/Routes/orderRoute");
 const  redis=require("./src/cache/redisConfig");
 
 if(process.env.NODE_ENV==="development"){
@@ -37,6 +38,8 @@ if(process.env.NODE_ENV==="production"){
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/products",productRouter)
 app.use("/api/v1/seller",sellerRouter)
+app.use("/api/v1/order",orderRouter)
+
 // return error if route is not found.
 app.all("*",(req,res,next)=>{
   next(new AppError(`Can't find ${req.originalUrl} on this server!`,404))
