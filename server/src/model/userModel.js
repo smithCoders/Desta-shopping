@@ -68,9 +68,11 @@ const userSchema= new Schema({
       type:Schema.Types.ObjectId,
       ref:'Cart'
     }],
-    roles:{
-      type:String,
-      deafult:"user"},
+   roles: {
+  type: [String],
+  default: ["user"]
+},
+
     active:{
         type:Boolean,
         default:true,

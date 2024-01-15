@@ -12,7 +12,8 @@ const updateObject = (obj, ...allowedFields) => {
 };
 // get-user.
 // exports.getUser=factory.getOne(User)
-exports.getAllUser=factory.getAll(User)
+exports.getAllUser=factory.getAll(User);
+exports.getUser=factory.getOne(User)
 // update me.
 exports.updateProfile = catchAsync(async (req, res, next) => {
   // throw error when the user tries to update the password.

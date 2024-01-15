@@ -4,6 +4,7 @@ const User=require("../model/userModel")
 const factory=require("./factoryHandler");
 const catchAsync=require("../utils/catchAsync");
 const AppError=require("../utils/AppError");
+const redis=require("../cache/redisConfig")
 exports.addtoCart=catchAsync(async(req,res,next)=>{
    const userId=req.user.id;
   
@@ -42,18 +43,44 @@ res.status(201).json({
     data:{cartItem}
 })
 });
-exports.viewCart=catchAsync(async(req,res,next)=>{
-    const userId=req.user.id;
-    const cartItem=await Cart.find({user:userId});
-    if(!cartItem){
-        return next(new AppError("cart is empty",404))
-    }
-    res.status(200).json({
-        status:"sucess",
-        data:{cartItem}
+exports.viewCart = catchAsync(async (req, res, next) => {
+  const keyPrefix = "cart";
+  const params = req.query;
 
-    })
+  // Check if the data is cached.
+  const cartCached = await redis.getCach(keyPrefix, params);
+
+  // Return cached data if available.
+  if (cartCached) {
+    console.log("Data from cache");
+    return res.status(200).json({
+      status: "success",
+      data: { cartCached },
+    });
+  }
+
+  // If data isn't cached, fetch from MongoDB.
+  const userId = req.user.id;
+  const cartItem = await Cart.find({ user: userId });
+
+  // Handle the case when the cart is empty.
+if (!cartItem || cartItem.length === 0) {
+  return next(new AppError("Cart is empty", 404));
+}
+
+  // Set data to Redis only if it's not an empty array.
+  if (cartItem && cartItem.length > 0) {
+    await redis.setCach(keyPrefix, params, cartItem);
+  }
+
+
+  console.log("Data from DB");
+  res.status(200).json({
+    status: "success",
+    data: { cartItem },
+  });
 });
+
 exports.updateQuantity=catchAsync(async(req,res,next)=>{
     const  cartId=req.params.cartId
     const {quantity}=req.body;

@@ -10,6 +10,7 @@ router.route("/login").post(userController.login);
 
 router.use(userController.authorize)
 router.route("/").get(userController.getAllUser)
+router.route("/:id").get(userController.getUser)
 // router.route("/:id").get(userController.getUser)
 router.route("/logout").get(authController.logOut)
 router.route("/acess-token").post(token.generateAccessToken)

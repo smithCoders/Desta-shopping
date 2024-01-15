@@ -3,6 +3,7 @@ const User=require("../model/userModel");
 const catchAsync=require("../utils/catchAsync");
 const AppError=require("../utils/AppError");
 const Product = require("../model/productSchema");
+const redis=require("../cache/redisConfig")
 const checkProductAvailability = catchAsync(async (products) => {
   const unavailableProduct = [];
   for (const product of products) {
@@ -48,11 +49,28 @@ exports.placeOrder = catchAsync(async (req, res, next) => {
 });
 
 exports.getOrderHistory=catchAsync(async(req,res,next)=>{
+  const keyPrefix="order";
+  const params=req.query;
+  const orderCached=await redis.getCach(keyPrefix,params);
+  if(orderCached){
+    console.log("from Redis");
+   return   res.status(200).json({
+        status:"sucess",
+        result:orderCached.length,
+        data:{orderCached}
+    })
+  }
     // get all orders created by the user
-    const orders=await Order.find({user:req?.user?.id}).sort("-createdAt")
-    if(!orders){
+const orders=await Order.find({user:req?.user?.id}).sort("-createdAt");
+console.log("order:",req?.user?.id)
+    if(!orders || orders.length===0){
         return next(new AppError("order history not found",404))
+    };
+    if(orders && orders.length>0){
+ await redis.setCach(keyPrefix,params,orders);
     }
+   
+    console.log("from Mongodb")
     res.status(200).json({
         status:"sucess",
         result:orders.length,
