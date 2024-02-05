@@ -62,7 +62,7 @@ exports.getOrderHistory=catchAsync(async(req,res,next)=>{
   }
     // get all orders created by the user
 const orders=await Order.find({user:req?.user?.id}).sort("-createdAt");
-console.log("order:",req?.user?.id)
+
     if(!orders || orders.length===0){
         return next(new AppError("order history not found",404))
     };

@@ -4,6 +4,7 @@ const cookieParser=require("cookie-parser");
 const fileUpload=require("express-fileupload");
 const morgan=require("morgan")
 const cors=require("cors")
+const swaggerUi = require("swagger-ui-express"); 
 const app=express()
 const AppError=require("./src/utils/AppError");
 const error=require("./src/middleware/error")
@@ -13,6 +14,8 @@ const sellerRouter=require("./src/Routes/sellerRoute");
 const orderRouter=require("./src/Routes/orderRoute");
 const cartRouter=require("./src/Routes/cartRoute");
 const  redis=require("./src/cache/redisConfig");
+const specs=require("./src/utils/swagger")
+
 
 if(process.env.NODE_ENV==="development"){
   app.use(morgan("dev"))
@@ -41,11 +44,13 @@ app.use("/api/v1/products",productRouter)
 app.use("/api/v1/seller",sellerRouter)
 app.use("/api/v1/order",orderRouter)
 app.use("/api/v1/cart",cartRouter)
-
 // return error if route is not found.
 app.all("*",(req,res,next)=>{
   next(new AppError(`Can't find ${req.originalUrl} on this server!`,404))
 })
+
+// swagger UI setup.
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // error handler.
 app.use(error)
