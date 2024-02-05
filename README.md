@@ -65,18 +65,17 @@ The project uses the following dependencies:
 | express                 | ^4.18.2  | Web application framework for Node.js              |
 | mongoose                | ^8.0.3   | MongoDB object modeling tool                       |
 | ioredis                 | ^5.3.2   | Redis client with support for promises             |
-| redis                   | ^4.6.12  | Redis client library for Node.js                   |
 | express-fileupload      | ^1.4.3   | Middleware for handling file uploads with Express  |
 | multer                  | ^1.4.5   | Middleware for handling multipart/form-data       |
 | nodemailer              | ^6.9.7   | Send emails from Node.js                          |
 | jwt                     | ^9.0.2   | JSON Web Token implementation                      |
-| passport                | ^0.7.0   | Authentication middleware for Node.js              |
+
 
  ## 2. Front end
 
  | Library                 | Version  | Description                                        |
 |-------------------------|----------|----------------------------------------------------|
-| ejs                     | ^3.1.9   | Embedded JavaScript templates                      |
+| ejs                     | ^3.1.9   | Embedded JavaScript templates,send dynamic Email                      |
 | swagger-jsdoc           | ^6.2.8   | Generate Swagger documentation from JSDoc comments  |
 | swagger-ui-express      | ^5.0.0   | Swagger UI middleware for Express                  |
 
@@ -109,12 +108,8 @@ The project uses the following dependencies:
 |-------------------------|----------|----------------------------------------------------|
 | body-parser             | ^1.20.2  | Parse incoming request bodies in a middleware     |
 | cookie-parser           | ^1.4.6   | Parse Cookie header and populate req.cookies      |
-| cors                    | ^2.8.5   | Middleware to enable CORS (Cross-Origin Resource Sharing)  |
 | express-rate-limit      | ^7.1.5   | Rate limiting middleware for Express apps         |
 | express-session         | ^1.17.3  | Simple session middleware for Express              |
-| passport-facebook       | ^3.0.0   | Passport strategy for authenticating with Facebook |
-| passport-google-oauth20 | ^2.0.0   | Passport strategy for authenticating with Google   |
-| passport-local          | ^1.0.0   | Passport strategy for authenticating with a username and password |
 
 
 ## 6.  Development
