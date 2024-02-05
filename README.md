@@ -17,7 +17,7 @@ Express Shop  API is a feature-rich, scalable e-commerce solution designed to pr
 - [API Documentation](#api-documentation)
 - [Features](#features)
 - [Contribution](#contribution)
-- [License](#license)
+
 
 <!-- Installation Instructions -->
 ## Installation
@@ -43,6 +43,7 @@ Run the application:
 npm start
 
 ##  API Documentation.
+
 full dcoumenation  for    API's will be avalibale soon on SWagger UI
 ## Features.
 
