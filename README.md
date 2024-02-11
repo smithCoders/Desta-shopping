@@ -3,7 +3,7 @@
 
 Welcome to **Express Shop** - a modern e-commerce platform built with Node.js, Express.js, MongoDB, Redis, and the latest industry-standard libraries!
 
-<!-- Project Overview -->
+
 ## Overview
 
 Express Shop API is a feature-rich, scalable e-commerce solution designed to provide a seamless shopping experience.
