@@ -6,41 +6,57 @@ const  jwt=require("jsonwebtoken");
 const logger=require("../utils/logger");
 const jwtTokens=require("../utils/jwt")
 const  tokens=require("../utils/token");
+const path=require("path")
+const fs=require("fs")
 // genearte OTP.
 exports.generateOTP=()=>{
     return Math.floor(100_000+Math.random()*900_000).toString()
 }
-exports.signup =(Model,option={})=> catchAsync(async (req, res, next) => {
-  const{roles,otherField}=option
-  const { firstName, lastName, email,  password, passwordConfirm,role,...extraField} = req.body;
+exports.signup = () => catchAsync(async (req, res, next) => {
+    const { name, email, password } = req.body;
 
-  // Check if the email is unique
-  const existingemail = await Model.findOne({ email });
-   // logger 
-  if(!existingemail){
-    logger.info(`new user signup with email ${email} sucesful`)
-  }
-else{
-  logger.warn(`new user signup  with email ${email} is failed`)
-}
-  if (existingemail) {
-    return next(new AppError("User already exists", 400));
-  }
- 
-  const newUser = await Model.create({
-    firstName,
-    lastName,
-    email,
-    password,
-    passwordConfirm,
-    [roles]:role,
-    ...otherField,
-    ...extraField
+    // Check if the email is unique
+    const existingEmail = await User.findOne({ email });
+
+    if (existingEmail) {
+      const filename=req.file.filename;
+      const filePath=`/public/img/user${filename}`;
+      fs.unlink(filePath,(err)=>{
+        if(err){
+          console.log(err);
+          res.status(500).json({status:"failed",message:"Error deleting file"})
+        }
+        else{
+          res.json({message:"file deleted sucessfuly"})
+        }
+      })
+      
+        return next(new AppError("User already exists", 400));
+    }
+
+    let photo;
+    if (req.file) {
+        // Access filename safely using optional chaining
+        const filename = req.file.filename;
+        const fileUrl = path.join(filename);
+        photo = fileUrl;
+    }
+
+    const newUser = await User.create({
+        name,
+        email,
+        password,
+        photo
+    });
   
-  });
-
- jwtTokens.createSendToken(newUser,200,res)
+    res.status(201).json({
+        status: "success",
+        message: "User signup successful! Please check your email",
+        data: { newUser }
+    });
 });
+
+
 // login
 exports.login =Model=> catchAsync(async (req, res, next) => {
   // Validate input

@@ -14,7 +14,7 @@ process.on("uncaughtException", (err) => {
 
 mongoose.connect(process.env.MONGO_URL).then((db)=>{console.log("MongoDB connected Sucessfully")})
 .catch(err=>{console.log("Error while connecting Mongo",err.message)})
-const PORT=process.env.PORT=8000;
+const PORT=process.env.PORT ||8000;
 app.listen(PORT,()=>{
     console.log(`server running on Port ${PORT}`)
 })

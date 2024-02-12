@@ -69,3 +69,5 @@
 {"level":"info","message":"Login attempt for shoper@example.com successful"}
 {"level":"info","message":"Login attempt for john.doe@example.com successful"}
 {"level":"info","message":"Login attempt for john.doe@example.com successful"}
+{"level":"info","message":"new user signup with email undefined sucesful"}
+{"level":"info","message":"new user signup with email undefined sucesful"}

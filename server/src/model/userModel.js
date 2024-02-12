@@ -4,16 +4,12 @@ const bcrypt=require("bcryptjs");
 const crypto=require("crypto")
 const{Schema,model}=mongoose;
 const userSchema= new Schema({
-    firstName:{
+    name:{
         type:String,
-      required: [true, "Please enter your first name."],
+      required: [true, "Please enter your full Name name."],
 
     },
-    lastName:{
-        type:String,
-       required: [true, "Please enter your last name."],
-    
-    },
+  
     email:{
         type:String,
         required: [true, "Please provide your email address."],
@@ -21,39 +17,15 @@ const userSchema= new Schema({
           validate: [validator.isEmail, "Invalid email address."],
           lowercase:true
     },
-   phoneNumber: {
-    type: String,
-    required: [false, 'Please provide your phone number.'],
-    unique: [true, 'Phone number already used.'],
-    // validate: {
-    //   validator: function (value) {
-    //     //  /^\d{10}$/ for a 10-digit phone number.
-    //     return /^\\d{10}$/.test(value);
-    //   },
-    //   message: 'Please enter a valid 10-digit phone number.',
-    // },
-  },
+
     password:{
         type:String,
-        required:[function(){
-            return this.isNew || this.isModified("password")
-        },"password is required"],
+        required:[true,"password is required"],
         minlength:[7,"password must be greather than 7 character"],
         select:false
 
     },
-    passwordConfirm:{
-        type:String,
-        required:[function(){
-            return this.isModified("password")
-        },"please confirm your password"],
-        validate:{
-            validator:function(el){
-                return !this.isNew || el===this.password
-            },
-            message:"password isn't match"
-        }
-    },
+   
 
    photo: {
     type: String,
@@ -111,10 +83,6 @@ userSchema.methods.comparePassword=async function(candidatePassword,userPassword
     return await bcrypt.compare(candidatePassword,userPassword)
 }
 
-// virtual to combine first and last name
-userSchema.virtual("fullName").get(function () {
-  return `${this.firstName} ${this.lastName}`;
-});
 
 // passwor reset generator.
 userSchema.methods.passwordResetGenerator=async function(){
