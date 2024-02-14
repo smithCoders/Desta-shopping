@@ -24,7 +24,9 @@ if(process.env.NODE_ENV==="development"){
 // connect  redis.
 redis.connectRedis()
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+// Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(cors());

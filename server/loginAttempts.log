@@ -71,3 +71,5 @@
 {"level":"info","message":"Login attempt for john.doe@example.com successful"}
 {"level":"info","message":"new user signup with email undefined sucesful"}
 {"level":"info","message":"new user signup with email undefined sucesful"}
+{"level":"warn","message":"Failed to login attempt unkown user of hakumatata321@gmail.com"}
+{"level":"info","message":"Login attempt for hakuna12@gmail.com successful"}

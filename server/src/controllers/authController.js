@@ -6,31 +6,20 @@ const  jwt=require("jsonwebtoken");
 const logger=require("../utils/logger");
 const jwtTokens=require("../utils/jwt")
 const  tokens=require("../utils/token");
-const path=require("path")
-const fs=require("fs")
+
 // genearte OTP.
 exports.generateOTP=()=>{
     return Math.floor(100_000+Math.random()*900_000).toString()
 }
-exports.signup = () => catchAsync(async (req, res, next) => {
-    const { name, email, password } = req.body;
-
+exports.signup =catchAsync(async (req, res, next) => {
+    const{name,email,password}=req.body;
+    if(!name || !email || !password || name==="",email==="".password===""){
+      return next(new AppError("All fields required",400));
+    }
     // Check if the email is unique
     const existingEmail = await User.findOne({ email });
 
     if (existingEmail) {
-      const filename=req.file.filename;
-      const filePath=`/public/img/user${filename}`;
-      fs.unlink(filePath,(err)=>{
-        if(err){
-          console.log(err);
-          res.status(500).json({status:"failed",message:"Error deleting file"})
-        }
-        else{
-          res.json({message:"file deleted sucessfuly"})
-        }
-      })
-      
         return next(new AppError("User already exists", 400));
     }
 
@@ -48,7 +37,7 @@ exports.signup = () => catchAsync(async (req, res, next) => {
         password,
         photo
     });
-  
+
     res.status(201).json({
         status: "success",
         message: "User signup successful! Please check your email",
@@ -56,17 +45,16 @@ exports.signup = () => catchAsync(async (req, res, next) => {
     });
 });
 
-
 // login
-exports.login =Model=> catchAsync(async (req, res, next) => {
+exports.login = catchAsync(async (req, res, next) => {
   // Validate input
-  const { emailorPhone, password } = req.body;
-  if (!emailorPhone || !password) {
+  const { email, password } = req.body;
+  if (!email || !password) {
     return next(new AppError("Please provide both email or phone number and password.", 400));
   }
 
   // Check if user exists and password is correct.
-  const user = await Model.findOne({ $or: [{ email: emailorPhone }, { phoneNumber: emailorPhone }] }).select("+password");
+  const user = await User.findOne({email}).select("+password");
 // Log the login attempt.
 if(user){
   if(user.comparePassword(password,user.password)){
@@ -78,7 +66,7 @@ else{
 }
 }
 else{
-  logger.warn(`Failed to login attempt unkown user of ${emailorPhone}`)
+  logger.warn(`Failed to login attempt unkown user of ${email}`)
 }
 
 
@@ -100,7 +88,7 @@ jwtTokens.createSendToken(user,200,res)
 });
 // protect route middleware.clear
 
-exports.authorize =Model=> catchAsync( async (req, res, next) => {
+exports.authorize =catchAsync( async (req, res, next) => {
   try {
     // 1. Check if the authorization header is present
     let token;
@@ -128,7 +116,7 @@ exports.authorize =Model=> catchAsync( async (req, res, next) => {
    
 
     // 4. Check if the user exists
-    const currentUser = await Model.findById(decoded.user);
+    const currentUser = await User.findById(decoded.user);
     if (!currentUser) {
       return next(new AppError('Unauthorized - Invalid user', 401));
     }

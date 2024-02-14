@@ -4,6 +4,8 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools"
 import{Toaster} from "react-hot-toast"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import Data from "./pages/Data"
+
 // define aueyclient.
 const queryClient= new QueryClient({
 defaultOptions:{
@@ -17,6 +19,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false}/>
        <BrowserRouter>
  <Routes>
+  <Route index  element={<Data/>}/>
   <Route path="login" element={<Login/>}/>
   <Route path="signup" element={<Signup/>}/>
  </Routes>
