@@ -1,10 +1,9 @@
-const errorHandler=require("../utils/AppError");
-const errorLogger=require("../utils/errorLogger")
+const errorHandler=require("../util/AppError");
+
 module.exports=(err,req,res,next)=>{
     err.statusCode=err.statusCode || 500;
     err.status=err.status || "internal server error";
-  // Log the error
-  errorLogger.error(`Error: ${err.message}`, { stack: err.stack });
+
     // wrong mongodb id.
     if(err.name==="CastError"){
         const message=`invalid ${err.path}:${err.value}`;
