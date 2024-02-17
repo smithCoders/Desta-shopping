@@ -95,9 +95,10 @@ exports.isAuthenticated=catchAsync(async(req,res,next)=>{
 });
 // load user.
 exports.userProfile=catchAsync(async(req,res,next)=>{
-    const user=await User.findById(req.user.id);
+    const user=await User.findById(req.user?.id);
+    console.log(user)
     if(!user){
-        return next(new AppError("user not found",403))
+        return next(new AppError("user not found",404))
     }
     res.status(200).json({status:"sucess",data:{user}})
 })

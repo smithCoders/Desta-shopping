@@ -16,7 +16,9 @@ function Login() {
     const navigate=useNavigate();
    const login = async (data) => {
    
-        const response = await axios.post("/api/v1/user/login", data).
+        const response = await axios.post("/api/v1/user/login", data,{
+            withCredentials:true
+        }).
         then(res=>{toast.success("Login sucessfully");
          navigate("/");
 

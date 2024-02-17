@@ -1,10 +1,14 @@
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import {QueryClient,QueryClientProvider} from "@tanstack/react-query"
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools"
+import {useEffect} from "react"
+import axios from "axios"
 import{Toaster} from "react-hot-toast"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
-import Data from "./pages/Data"
+import Homepage from "./pages/Homepage"
+
+
 
 // define aueyclient.
 const queryClient= new QueryClient({
@@ -14,12 +18,19 @@ defaultOptions:{
 })
 
 function App() {
+  // useEffect(()=>{
+  //   axios.get("/api/v1/user",{withCredentials:true}).then((res)=>{
+  //     console.log(res.data)
+  //   })
+
+  // },[])
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false}/>
        <BrowserRouter>
  <Routes>
-  <Route index  element={<Data/>}/>
+  <Route index  element={<Homepage/>}/>
   <Route path="login" element={<Login/>}/>
   <Route path="signup" element={<Signup/>}/>
  </Routes>
