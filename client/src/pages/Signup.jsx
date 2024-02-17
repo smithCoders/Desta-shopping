@@ -3,15 +3,12 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { toast } from 'react-hot-toast';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link } from 'react-router-dom';
-
-import { useMutation, useQueryClient } from '@tanstack/react-query'; 
-
-
+import { Link ,useNavigate} from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query'; 
 import axios from 'axios';
 const signupUser = async (data) => {
   try {
-    const response = await axios.post("/api/v1/users/signup", data);
+    const response = await axios.post("/api/v1/user/signup", data);
     // Check if the response status code is in the 200 range
     if (response.status >= 200 && response.status < 300) {
       const responseData = response.data;
@@ -20,7 +17,7 @@ const signupUser = async (data) => {
     } else {
       // Handle non-successful response status codes
       toast.error("Failed to sign up");
-      return null; // Or throw an error if you want to handle it in a catch block
+      return null; 
     }
   } catch (error) {
     // Handle errors that occurred during the request
@@ -32,12 +29,14 @@ const signupUser = async (data) => {
 
 const Signup = () => {
     const [avatar, setAvatar] = useState(null);
-   const queryClinet = useQueryClient();
+    const navigate=useNavigate()
+
     const { mutate,isLoading } = useMutation(
         {
             mutationFn: signupUser,
-            onSuccess: () => { queryClinet.invalidateQueries({ queryKey: ["user"] }) },
-            onError: (err) => toast.error(err.message)
+            mutationKey:"signup",
+            onSuccess: () => {reset(),navigate("/") },
+            onError: (err) => console.log("error",err)
         }
     )
       const validationSchema = yup.object().shape({
@@ -62,7 +61,7 @@ const Signup = () => {
             formData.append('email', data.email);
             formData.append('password', data.password);
             formData.append('photo', avatar);
-            mutate(formData,{onSuccess:()=>{reset()}})
+            mutate(data,{onSuccess:()=>{reset()}})
         } catch (error) {
             console.error("Error during signup", error);
             toast.error("Unexpected error, please try again later");

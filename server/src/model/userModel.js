@@ -20,6 +20,10 @@ const userSchema=  Schema({
     type:String,
     required:[true,"passwrd required"]
 
+  },
+  isVerified:{
+    type:Boolean,
+    default:false
   }
 })
 
@@ -28,7 +32,7 @@ userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next;
 
   try {
-    this.password = await bcrypt.hash(this.password, 12);
+    this.password =  bcrypt.hashSync(this.password, 12);
 
   } catch (err) {
     console.error(err);
@@ -36,8 +40,8 @@ userSchema.pre("save", async function (next) {
   }
 });
 // comparing password.
-userSchema.methods.comparePassword=async function(candidatePassword,userPassword){
-    return await bcrypt.compare(candidatePassword,userPassword)
+userSchema.methods.comparePassword=function(candidatePassword,userPassword){
+    return  bcrypt.compareSync(candidatePassword,userPassword)
 }
 const User=model("User",userSchema);
 

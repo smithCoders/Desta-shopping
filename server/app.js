@@ -6,10 +6,8 @@ const error=require("./src/middleware/error")
 const AppError=require("./src/util/AppError")
 const userRouter=require("./src/Routes/userRouter")
 const app=express();
-
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+if(process.env.NODE_ENV==="development"){
+    app.use(morgan("dev"))}
 
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));

@@ -1,37 +1,63 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import{useMutation} from "@tanstack/react-query";
 import * as yup from 'yup';
+
+
+
 
 
 function Login() {
     const [visible, setVisible] = useState(false);
+    const navigate=useNavigate();
+   const login = async (data) => {
+    try {
+        const response = await axios.post("/api/v1/user/login", data);
+        if (response.status === 200) {
+            // Login successful
+            toast.success(response.data.message);
+            navigate("/");
+
+            // Redirect or perform any necessary actions upon successful login
+            return response.data;
+        } else {
+            // Login failed
+            const errorMessage = response.data.message || "An unexpected error occurred.";
+
+            toast.error(errorMessage);
+        }
+    } catch (err) {
+     
+        console.log("Error while login", err);
+
+        toast.error("An unexpected error occurred. Please try again.");
+    }
+}
+
+    const{mutateAsync,isLoading}=useMutation({
+        mutationFn:login,
+        mutationKey:"login",
+        onSuccess:()=>{reset()},
+        onError:(err)=>{console.log("error uring login",err)}
+    });
+
     const validationSchema = yup.object().shape({
         email: yup.string().email('Invalid email address').required('Please provide your email address'),
         password: yup.string().required('Password is required')
     });
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register,reset, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema)
     });
 
-    const handleLogin = async (data) => {
-        try {
-            const response = await axios.post("/api/v1/users/login", data);
-            if (response.status >= 200 && response.status < 300) {
-                toast.success("Login successful");
-                // Redirect the user or do something else upon successful login
-            } else {
-                toast.error("Failed to login");
-            }
-        } catch (error) {
-            console.error("Error during login:", error);
-            toast.error("Unexpected error occurred during login");
-        }
-    };
+function onSubmit(data){
+    mutateAsync(data);
+   
+}
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900 h-screen flex justify-center items-center">
@@ -44,7 +70,7 @@ function Login() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Sign in to your account
                         </h1>
-                        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(handleLogin)}>
+                        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                                 <input
@@ -89,7 +115,7 @@ function Login() {
                             <div className="flex items-center justify-between">
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
-                                        <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required />
+                                        <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"  />
                                     </div>
                                     <div className="ml-3 text-sm">
                                         <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
