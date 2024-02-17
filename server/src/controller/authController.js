@@ -84,3 +84,20 @@ exports.login=catchAsync(async(req,res,next)=>{
 
 
 })
+exports.isAuthenticated=catchAsync(async(req,res,next)=>{
+    const{token}=req.cookies;
+    if(!token){
+        return next(new AppError("please login to continue.",401))
+    }
+    const decoded=jwt.verify(token,process.env.JWT_SECRET);
+    req.user=await User.findById(decoded.id);
+    next()
+});
+// load user.
+exports.userProfile=catchAsync(async(req,res,next)=>{
+    const user=await User.findById(req.user.id);
+    if(!user){
+        return next(new AppError("user not found",403))
+    }
+    res.status(200).json({status:"sucess",data:{user}})
+})

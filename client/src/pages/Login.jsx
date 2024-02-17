@@ -15,27 +15,14 @@ function Login() {
     const [visible, setVisible] = useState(false);
     const navigate=useNavigate();
    const login = async (data) => {
-    try {
-        const response = await axios.post("/api/v1/user/login", data);
-        if (response.status === 200) {
-            // Login successful
-            toast.success(response.data.message);
-            navigate("/");
+   
+        const response = await axios.post("/api/v1/user/login", data).
+        then(res=>{toast.success("Login sucessfully");
+         navigate("/");
 
-            // Redirect or perform any necessary actions upon successful login
-            return response.data;
-        } else {
-            // Login failed
-            const errorMessage = response.data.message || "An unexpected error occurred.";
-
-            toast.error(errorMessage);
-        }
-    } catch (err) {
-     
-        console.log("Error while login", err);
-
-        toast.error("An unexpected error occurred. Please try again.");
-    }
+    
+    }).catch((err)=>{toast.error(err.response.data.message)})
+        
 }
 
     const{mutateAsync,isLoading}=useMutation({
