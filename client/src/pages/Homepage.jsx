@@ -1,3 +1,4 @@
+import BestDeals from "../components/BestDeals"
 import Ctegories from "../components/Ctegories"
 import Header from "../components/Header"
 import Hero from "../components/Hero"
@@ -9,6 +10,7 @@ function Homepage() {
            <Header/>
            <Hero/> 
            <Ctegories/>
+           <BestDeals/>
         </div>
     )
 }

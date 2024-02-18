@@ -26,7 +26,7 @@ function Header() {
 
 
     window.addEventListener("scroll",()=>{
-        if(window.screenY===70) setActive(true)
+        if(window.scrollY >70) setActive(true)
         else setActive(false)
     })
     return (
