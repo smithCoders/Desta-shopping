@@ -11,7 +11,12 @@ const styles={
     cart_button:"px-[20px] h-[38px] rounded-[20px] bg-[#f63b60] flex items-center justify-center  rounded-xl cursor-pointer",
     input:"w-full border p-1 rounded-[5px]",
     activeStatus:"w-[10px] h-[10px] rounded-full absolute top-0 right-1 bg-[#40d132]",
-    normalFlex:"flex items-center"
+    normalFlex:"flex items-center",
+    btn:"inline-block  font-semibold py-[16px] px-[32px] rounded-[9px]  cursor-pointer transition  duration-300 ",
+    subHeading:"block  text-normal  font-[400] text-[#cf711f] mb-4  uppercase text-center",
+    container:"max-w-[1200px]  py-0 px-[32px]  my-0 mx-auto  ",
+    
+
 
 };
 export default styles

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import styles from "../styles/styles"
-import logo  from "/logo2.png"
+import logo  from "/logo.svg"
 import { Link } from "react-router-dom";
 import  products from "../static/products"
 import {AiOutlineSearch,AiOutlineHeart, AiOutlineShoppingCart} from "react-icons/ai";
@@ -35,7 +35,7 @@ function Header() {
             <div className="hidden  md:h-[50px] md:my-[20px] md:flex items-center justify-between">
                 <div>
                     <Link to={"/"}>
-                        <img  src={logo} alt="logo" className="w-36 h-36 rounded-full object-cover"/>
+                        <img  src={logo} alt="logo" className="w-[90px] h-[90px] rounded-full object-cover"/>
                     </Link>
                 </div>
                 {/* search bar */}
@@ -70,7 +70,7 @@ function Header() {
                         ):null}
                     </div>
                     {/* btn */}
-                    <div className={`${styles.button}`}>
+                    <div className={`${styles.button} `}>
                         <Link to={"/seller"}>
                             <h1 className="text-white flex items-center">Become Seller  <IoIosArrowForward size={25} color="white"/></h1>
                            
