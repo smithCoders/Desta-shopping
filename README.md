@@ -1,12 +1,12 @@
 <!-- Project Title -->
-# Express Shop
+# Desta Shopping
 
-Welcome to **Express Shop** - a modern e-commerce platform built with Node.js, Express.js, MongoDB, Redis, and the latest industry-standard libraries!
+Welcome to **Desta shopping** - a modern e-commerce platform built with Node.js, Express.js, MongoDB, Redis, and the latest industry-standard libraries!
 
 
 ## Overview
 
-Express Shop API is a feature-rich, scalable e-commerce solution designed to provide a seamless shopping experience.
+Desta Shopping is a feature-rich, scalable e-commerce solution designed to provide a seamless shopping experience.
 
 <!-- Table of Contents -->
 ## Table of Contents
