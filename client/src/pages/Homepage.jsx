@@ -1,18 +1,18 @@
-import BestDeals from "../components/BestDeals"
-import Ctegories from "../components/Ctegories"
-import Header from "../components/Header"
+
+import CategoriesSection from "../sections/CategoriesSection"
+
 import Hero from "../components/Hero"
 import Events from "../sections/Events"
 import FeaturedProduct from "../sections/FeaturedProduct"
-import styles from "../styles/styles"
+import BestDealSection from "../sections/BestDeals"
 
 function Homepage() {
     return (
         <div >
-           <Header/>
+          
            <Hero/> 
-           <Ctegories/>
-           <BestDeals/>
+           <CategoriesSection/>
+           <BestDealSection/>
            <FeaturedProduct/>
            <Events/>
         </div>

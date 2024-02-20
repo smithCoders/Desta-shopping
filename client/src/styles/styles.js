@@ -1,7 +1,6 @@
 const styles={
     custom_container:"w-11/12  hidden sm-block",
     heading:"text-[27px] text-center md:text-start font-[600] font-Roboto pb-[20px]",
-    section:"w-11/12 mx-auto",
     productTitle:"text-[25px] font-[600] font-Roboto  text-[#333]",
     price :"font-bold text-[18px] text-[#333] font-Roboto",
      productDidcountPrice:"font-[500] text-[16px] text-[#d55b45] pl-3 mt-[-4px] line-through",
@@ -15,6 +14,8 @@ const styles={
     btn:"inline-block  font-semibold py-[16px] px-[32px] rounded-[9px]  cursor-pointer transition  duration-300 ",
     subHeading:"block  text-normal  font-[400] text-[#cf711f] mb-4  uppercase text-center",
     container:"max-w-[1200px]  py-0 px-[32px]  my-0 mx-auto  ",
+    headingSecondary:"text-[32px] text-center text-slate-800  leading-7 mb-[40px]",
+    section:"px-0  py-[96px] capitalize"
     
 
 

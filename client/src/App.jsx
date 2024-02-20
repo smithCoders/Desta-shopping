@@ -7,6 +7,8 @@ import{Toaster} from "react-hot-toast"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Homepage from "./pages/Homepage"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
 
 
 
@@ -29,11 +31,13 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false}/>
        <BrowserRouter>
+       <Header/>
  <Routes>
   <Route index  element={<Homepage/>}/>
   <Route path="login" element={<Login/>}/>
   <Route path="signup" element={<Signup/>}/>
  </Routes>
+ <Footer/>
  </BrowserRouter>
 
    <Toaster position="top-center"
