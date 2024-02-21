@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import styles from "../styles/styles"
-import   bg from "/card1.jpg"
+
 
 function Hero() {
     return (
@@ -17,7 +17,7 @@ function Hero() {
                 </div>
                 {/* img */}
                 <div>
-                    <img src={bg} className="w-full object-cover"/>
+                    
                 </div>
             </div>
 

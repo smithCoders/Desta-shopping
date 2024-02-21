@@ -1,14 +1,12 @@
 import { useState } from "react";
 import styles from "../styles/styles";
-import logo from "/logo.svg";
+import  logo  from "/logo-colored.png"
 import { Link } from "react-router-dom";
+import { Dropdown, Button } from 'flowbite-react';
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { FiMessageSquare } from "react-icons/fi";
 import products from "../static/products";
-import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
-import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
-import { BiMenuAltLeft } from "react-icons/bi";
-import Dropdown from "./Dropdown";
-import NavBar from "./NavBar";
+
 
 function Header() {
     const [search, setSearch] = useState("");
@@ -30,108 +28,70 @@ function Header() {
     })
 
     return (
-        <>
+        <div className="flex  justify-between  items-center h-[96px] px-[32px] py-0 ">
             <div>
-                <div className= "bg-[#fdf2e9]  flex items-center justify-between h-[96px] py-0 px-[48px]">
-                    <div>
-                        <Link to={"/"}>
-                            <img src={logo} alt="logo" className="w-[90px] h-[90px] rounded-full object-cover" />
-                        </Link>
-                    </div>
-                    {/* search bar */}
-                    <div className="w-[50%] relative">
-                        <input type="text"
-                            placeholder="search Products..."
-                            value={search}
-                            onChange={handleSearch}
-                            className="h-10 w-full  border-[#fdf2e9] border-[2px] rounded-md"
-                        />
-                        <AiOutlineSearch size={30} color="gray" className="absolute right-2 top-1.5 cursor-pointer" />
+                <Link to="/">
+                    <img src={logo} alt="logo" className="w-[150px]" />
+                </Link>
+            </div>
+            
 
-                        {searchData && searchData.length !== 0 ? (
-                            <div className="absolute min-h-[30vh] bg-slate-50  shadow-sm p-4 z-[9]">
-                                {searchData && searchData.map((data, index) => {
-                                    const d = data.name;
-                                    const productName = d.replace(/\s+/g, "-")
-                                    return (<Link to={`/product/${productName}`} key={index}>
-                                        <div className="w-full flex items-start py-3">
-                                            <img src={data.img} alt="" className="w-10 h-10 mr-3" />
-                                            <h1>{data.name}</h1>
-                                        </div>
-
-                                    </Link>
-                                    )
-                                })}
+            
 
 
+            <div className="px-[150px]  flex items-center">
+                <input
+                type="text"
+                className="w-full  h-full outline-none bg-transparent"
+                placeholder="search for products"
+                value={search}
+                onChange={handleSearch}
 
+                />
+                {/* category dropdown */}
+                <div >
+                    <Dropdown 
+                    label="Categories" 
+                    placement="bottom" 
+                    color="transparent"
+                   
 
-                            </div>
-                        ) : null}
-                    </div>
-                    {/* btn */}
-
-                    <Link to={"/seller"}
-                        className="inline-block font-medium  transition duration-300  px-3 py-3 rounded-lg bg-[#e67e22] ">
-                        <p className="text-white  text-base  flex items-center">Become Seller  <IoIosArrowForward size={25} /></p>
-
-                    </Link>
-
-
-
+                    className="rounded-none bg-[#0D6EFD]">
+        <Dropdown.Item>Hakuna</Dropdown.Item>
+        <Dropdown.Item>cothes</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+        <Dropdown.Item>Electronics</Dropdown.Item>
+       
+      </Dropdown>
+                </div>
+                {/* button */}
+                <div>
+                    <Button   className="rounded-l-sm px-[14px]   bg-[#0D6EFD] text-white ">Search</Button>
 
                 </div>
+            </div>
+            {/* icons */}
+            <div className="flex items-center  justify-center gap-2">
+                <MdOutlineManageAccounts size={20} />
+                <FiMessageSquare size={20}/>  
+                <FiMessageSquare size={20}/>  
+                <FiMessageSquare size={20}/>  
+
 
 
             </div>
-            {/* navbar */}
-            <div className={`${active ? " fixed top-0 left-0 z-10 w-full" : null} hidden transition md:flex  items-center justify-between  bg-[#fdf2e9] px-[48px] py-0   text-[#333] h-[70px]  ${active ? 'bg-white' : 'bg-[#fdf2e9]'} `}>
-
-                {/* categories */}
-                <div className="relative h-14 w-[270px] mt-3  max-large:block">
-                    <BiMenuAltLeft size={30} className="absolute top-3 left-2" />
-                    <button className="h-full   w-full flex items-center justify-center pl-10 bg-white font-sans text-lg font-medium select-none rounded-t-md text-slate-800">All  Categories</button>
-                    <IoIosArrowDown size={30} className="absolute  top-3 right-2 cursor-pointer" onClick={() => setDropDown(drop => !drop)} />
-                    <Dropdown categoryData={dropDown} setDropdown={setDropDown} />
 
 
-                </div>
-                {/* nav items */}
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center justify-center">
-                        <NavBar />
-
-                    </div>
-                    <div className={`flex items-center justify-center`}>
-                        <div className={`${styles.normalFlex}`}>
-                            <div className="relative cursor-pointer  mr-[15px]">
-                                <AiOutlineHeart size={30} />
-                                <span className="absolute right-0 top-0 rounded-full bg-green-500 w-5 h-5 p-0 m-0 text-white font-mono  text-center ">0</span>
-                            </div>
-                        </div>
-                        <div className={`${styles.normalFlex}`}>
-                            <div className="relative cursor-pointer  mr-[15px]">
-                                <AiOutlineShoppingCart size={30} />
-                                <span className="absolute right-0 top-0 rounded-full bg-green-500 w-5 h-5 p-0 m-0 text-white font-mono  text-center ">0</span>
-                            </div>
-                        </div>
-                        <div className={`${styles.normalFlex}`}>
-                            <div className="relative cursor-pointer  mr-[15px]">
-                                <Link to={"/login"}>
-                                    <CgProfile size={30} />
-                                </Link>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-            </div>
-        </>
+        </div>
+      
+           
+      
     )
 }
 

@@ -19,7 +19,7 @@ function Footer() {
 
                 <div className="flex flex-col gap-2  ">
                     <Link>
-                    <img src={logo} className="h-[150px] "/>
+                    <img src={logo} className="h-[100px] "/>
                     </Link>
                     <div className="flex  gap-4">
                         <Link>
