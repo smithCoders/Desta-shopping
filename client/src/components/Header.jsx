@@ -2,9 +2,14 @@ import { useState } from "react";
 import styles from "../styles/styles";
 import  logo  from "/logo-colored.png"
 import { Link } from "react-router-dom";
-import { Dropdown, Button } from 'flowbite-react';
+import { Dropdown, Button,Navbar } from 'flowbite-react';
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { FiMessageSquare } from "react-icons/fi";
+import { FaRegHeart } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
+import { IoMdMenu } from "react-icons/io";
+
+
 import products from "../static/products";
 
 
@@ -28,7 +33,8 @@ function Header() {
     })
 
     return (
-        <div className="flex  justify-between  items-center h-[96px] px-[32px] py-0 ">
+        <div className="px-[96px] py-0 ">
+             <div className="flex  justify-between  items-center h-[96px] ">
             <div>
                 <Link to="/">
                     <img src={logo} alt="logo" className="w-[150px]" />
@@ -39,10 +45,10 @@ function Header() {
             
 
 
-            <div className="px-[150px]  flex items-center">
+            <div className="px-[100px]  flex items-center">
                 <input
                 type="text"
-                className="w-full  h-full outline-none bg-transparent"
+                className="w-[350px]  h-full  outline-1 outline-sky-500 border border-[##0D6EFD] bg-transparent"
                 placeholder="search for products"
                 value={search}
                 onChange={handleSearch}
@@ -56,7 +62,7 @@ function Header() {
                     color="transparent"
                    
 
-                    className="rounded-none bg-[#0D6EFD]">
+                    className="rounded-none ">
         <Dropdown.Item>Hakuna</Dropdown.Item>
         <Dropdown.Item>cothes</Dropdown.Item>
         <Dropdown.Item>Electronics</Dropdown.Item>
@@ -77,11 +83,25 @@ function Header() {
                 </div>
             </div>
             {/* icons */}
-            <div className="flex items-center  justify-center gap-2">
-                <MdOutlineManageAccounts size={20} />
-                <FiMessageSquare size={20}/>  
-                <FiMessageSquare size={20}/>  
-                <FiMessageSquare size={20}/>  
+            <div className="flex items-center  justify-center gap-6">
+                <div className="text-gray-500">
+                    <MdOutlineManageAccounts size={25}   />
+                    <span className="text-sm">profile</span>
+                </div>
+                <div className="text-gray-500">
+                    <FiMessageSquare size={25} /> 
+                    <span className="text-sm">Messages</span>
+                </div>
+                 <div className="text-gray-500" >
+                     <FaRegHeart size={25}  />
+                     <span className="text-sm">Orders</span>
+                 </div>
+                 <div className="text-gray-500">
+                <IoCartOutline  size={25} /> 
+                <span className="text-sm">Mycart</span> 
+
+                 </div>
+              
 
 
 
@@ -89,6 +109,35 @@ function Header() {
 
 
         </div>
+        {/* navbar */}
+         <Navbar fluid rounded>
+      <div className="flex md:order-2">
+        
+        <Navbar.Toggle />
+      </div>
+      <Navbar.Collapse className="gap-4  flex-nowrap">
+        <Navbar.Link>
+            <span className="cursor-pointer">
+                 <IoMdMenu size={25} className="inline pr-2"/>
+           All Category
+            </span>
+           
+        </Navbar.Link>
+        
+        <Navbar.Link href="#" active >
+          Home
+        </Navbar.Link>
+        <Navbar.Link href="#">Hot offers</Navbar.Link>
+        <Navbar.Link href="#">Gift offers</Navbar.Link>
+        <Navbar.Link href="#">FAQ</Navbar.Link>
+        <Navbar.Link href="#">Menu Items</Navbar.Link>
+        <Navbar.Link href="#">Contact</Navbar.Link>
+        
+      </Navbar.Collapse>
+    </Navbar>
+
+        </div>
+       
       
            
       
