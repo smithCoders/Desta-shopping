@@ -2,7 +2,7 @@ import RecommendationCard from "../components/RecommendationCard"
 
 function Recommendation_Section() {
     return (
-        <section className="-[1180px] h-[640px] mb-6">
+        <section className="w-[1180px] h-[640px] mb-6 overflow-hidden">
             <h3 className="text-[24px]  mb-4">Recommended Items</h3>
             <div className="grid  grid-cols-1 gap-6">
 

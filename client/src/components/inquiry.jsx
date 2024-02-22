@@ -1,5 +1,5 @@
 import img from "/inquiry.png"
-import { Button, Label, TextInput, Textarea } from 'flowbite-react';
+import { Button, TextInput, Textarea } from 'flowbite-react';
 function Inquiry() {
     return (
         <div className="w-[1189px] h-[420px]  relative overflow-hidden">

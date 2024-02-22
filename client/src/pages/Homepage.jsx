@@ -4,6 +4,7 @@ import Hero from "../components/Hero"
 import OutDoors from "../components/OutDoors"
 import Inquiry from "../components/inquiry"
 import Recommendation_Section from "../sections/Recommendation_Section"
+import Service_Section from "../sections/Service_Section"
 
 
 function Homepage() {
@@ -16,6 +17,7 @@ function Homepage() {
            <BlockItem/>
            <Inquiry/>
            <Recommendation_Section/>
+           <Service_Section/>
           
         </div>
     )
