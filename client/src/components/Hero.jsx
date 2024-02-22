@@ -6,8 +6,8 @@ import photo  from "/photo.png"
 
 function Hero() {
     return (
-        <div className=" px-[96px] py-0">
-            <div className="max-w-[1180px] h-[400px]  flex items-center shadow-md  ">
+        <div  className="mb-[32px]">
+            <div className="max-w-[1180px] h-[400px]  flex items-center shadow-md   ">
                 {/* grid-1 */}
                 <div className=" flex flex-col gap-4 justify-center w-[250px] h-[360px] pl-4">
                     <Link className="text-gray-600 hover:bg-[#E5F1FF]">Automobiles</Link>

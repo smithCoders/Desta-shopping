@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../styles/styles";
+
 import  logo  from "/logo-colored.png"
 import { Link } from "react-router-dom";
 import { Dropdown, Button,Navbar } from 'flowbite-react';
@@ -10,7 +10,6 @@ import { IoCartOutline } from "react-icons/io5";
 import { IoMdMenu } from "react-icons/io";
 
 
-import products from "../static/products";
 
 
 function Header() {

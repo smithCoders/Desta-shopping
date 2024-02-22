@@ -8,7 +8,7 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Homepage from "./pages/Homepage"
 import Header from "./components/Header"
-import Footer from "./components/Footer"
+
 
 
 
@@ -37,7 +37,7 @@ function App() {
   <Route path="login" element={<Login/>}/>
   <Route path="signup" element={<Signup/>}/>
  </Routes>
- <Footer/>
+
  </BrowserRouter>
 
    <Toaster position="top-center"
