@@ -3,6 +3,7 @@ import Deals from "../components/Deals"
 import Hero from "../components/Hero"
 import OutDoors from "../components/OutDoors"
 import Inquiry from "../components/inquiry"
+import Recommendation_Section from "../sections/Recommendation_Section"
 
 
 function Homepage() {
@@ -14,6 +15,7 @@ function Homepage() {
            <OutDoors/>
            <BlockItem/>
            <Inquiry/>
+           <Recommendation_Section/>
           
         </div>
     )
