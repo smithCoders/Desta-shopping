@@ -9,6 +9,7 @@ import Signup from "./pages/Signup"
 import Homepage from "./pages/Homepage"
 import Header from "./components/Header"
 import FooterComp from "./components/Footer"
+import ListView from "./pages/ListView"
 
 
 
@@ -34,11 +35,14 @@ function App() {
        <BrowserRouter>
        <Header/>
  <Routes>
+  
   <Route index  element={<Homepage/>}/>
   <Route path="login" element={<Login/>}/>
   <Route path="signup" element={<Signup/>}/>
+  <Route path="search-listView" element={<ListView/>}/>
+
  </Routes>
- <FooterComp/>
+ {/* <FooterComp/> */}
 
  </BrowserRouter>
 
