@@ -20,10 +20,7 @@ function Header() {
     const handleSearch = (e) => {
         const term = e.target.value;
         setSearch(term);
-        const filteredProduct = products && products.filter((product) =>
-            product.name.toLowerCase().includes(term.toLowerCase()));
-        setSearchData(filteredProduct);
-
+        
     }
 
     window.addEventListener("scroll", () => {
