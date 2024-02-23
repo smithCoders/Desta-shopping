@@ -10,7 +10,7 @@ import  security  from "/security.png";
 
 function Service_Section({src, icon, text}) {
     return (
-        <section className="w-[1180px] h-[256px] mb-6 overflow-hidden">
+        <section className="w-[1180px] h-[256px] mb-6 overflow-hidden ">
               <h3 className="text-[24px]  mb-4">Our extra services</h3>
               <div className="flex items-center gap-4">
                 <ServiceCard src={card1} icon={search} text={"Source from Industry Hubs"} />
