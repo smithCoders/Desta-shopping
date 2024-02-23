@@ -120,7 +120,7 @@ function Header() {
            
         </Navbar.Link>
         
-        <Navbar.Link href="#" active >
+        <Navbar.Link href="/" >
           Home
         </Navbar.Link>
         <Navbar.Link href="#">Hot offers</Navbar.Link>

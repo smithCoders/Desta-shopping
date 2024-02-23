@@ -10,6 +10,7 @@ import Homepage from "./pages/Homepage"
 import Header from "./components/Header"
 import FooterComp from "./components/Footer"
 import ListView from "./pages/ListView"
+import DetailProduct from "./pages/DetailProduct"
 
 
 
@@ -40,6 +41,7 @@ function App() {
   <Route path="login" element={<Login/>}/>
   <Route path="signup" element={<Signup/>}/>
   <Route path="search-listView" element={<ListView/>}/>
+  <Route path="products" element={<DetailProduct/>}/>
 
  </Routes>
  {/* <FooterComp/> */}
