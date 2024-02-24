@@ -1,5 +1,6 @@
 import BlockItem from "../components/BlockItem"
 import Deals from "../components/Deals"
+import Header from "../components/Header"
 import Hero from "../components/Hero"
 import Newsletter from "../components/Newsletter"
 import OutDoors from "../components/OutDoors"
@@ -12,6 +13,7 @@ function Homepage() {
     return (
         <div>
               <div className="px-[96px] py-0" >
+                <Header/>
           
            <Hero/> 
            <Deals/>

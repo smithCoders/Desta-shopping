@@ -11,6 +11,7 @@ import Header from "./components/Header"
 import FooterComp from "./components/Footer"
 import ListView from "./pages/ListView"
 import DetailProduct from "./pages/DetailProduct"
+import CartPage from "./pages/CartPage"
 
 
 
@@ -34,7 +35,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false}/>
        <BrowserRouter>
-       <Header/>
+       
  <Routes>
   
   <Route index  element={<Homepage/>}/>
@@ -42,9 +43,10 @@ function App() {
   <Route path="signup" element={<Signup/>}/>
   <Route path="search-listView" element={<ListView/>}/>
   <Route path="products" element={<DetailProduct/>}/>
+  <Route path="cart" element={<CartPage/>}/>
 
  </Routes>
- <FooterComp/>
+ {/* <FooterComp/> */}
 
  </BrowserRouter>
 
