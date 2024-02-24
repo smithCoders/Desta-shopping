@@ -1,10 +1,12 @@
-import img from "/cloth1.jpg"
-import img2 from "/image 34.png"
+import  {Link}   from "react-router-dom"
 import { FaCheck } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { MdOutlineMessage,MdOutlineShoppingBasket } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
 import RatingComponent  from "./RatingComponent"
 import SupplierInfo from "./SupplierInfo";
+import img from "/cloth1.jpg"
+import img2 from "/image 34.png"
 function DeatilBox() {
     return (
         <div className="flex gap-4">
@@ -75,8 +77,15 @@ function DeatilBox() {
 
             </div>
             {/* card */}
-            <div>
+            <div className="relative">
                 <SupplierInfo/>
+                <div className="absolute bottom-[150px]  right-16 flex gap-1 items-center justify-center">
+                    <FaRegHeart  size={20} color="blue"/>
+
+                    <Link to={""} className="inline text-blue-700">save for later</Link>
+                    
+
+                </div>
                 
                 </div>
 

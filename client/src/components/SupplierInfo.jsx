@@ -1,6 +1,7 @@
 import { Button, Card } from 'flowbite-react';
 import { MdOutlineVerifiedUser, MdOutlineLocalShipping } from "react-icons/md";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoHomeOutline,  } from "react-icons/io5";
+
 import logo  from "/seller-logo.jpg"
 function SupplierInfo() {
     return (

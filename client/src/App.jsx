@@ -44,7 +44,7 @@ function App() {
   <Route path="products" element={<DetailProduct/>}/>
 
  </Routes>
- {/* <FooterComp/> */}
+ <FooterComp/>
 
  </BrowserRouter>
 
