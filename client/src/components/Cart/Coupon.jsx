@@ -5,9 +5,9 @@ function Coupon() {
        
             <Card className='w-[280px] h-[110px]'>
                 <p className='text-gray-600'>Have Coupoun?</p>
-                <div className='flex items-center border border-gray-300 rounded-md '>
+                <div className='flex items-center rounded-md '>
                     <TextInput  type='text' />
-                    <Button color="white" className='text-blue-600 text-[18px]'>Apply</Button>
+                    <Button color="white" className='text-blue-600 text-[18px] font-medium  border border-gray-300'>Apply</Button>
                 </div>
 
             </Card>
