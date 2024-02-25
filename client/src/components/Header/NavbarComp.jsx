@@ -1,5 +1,6 @@
 import { Navbar } from 'flowbite-react';
 import { IoMdMenu } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 function NavbarComp({ navLinks }) {
     return (
@@ -15,9 +16,9 @@ function NavbarComp({ navLinks }) {
                     </span>
                 </Navbar.Link>
                 {navLinks.map((link, index) => (
-                    <Navbar.Link key={index} href={link.url}>
+                    <Link key={index} to={link.url}>
                         {link.title}
-                    </Navbar.Link>
+                    </Link>
                 ))}
             </Navbar.Collapse>
         </Navbar>

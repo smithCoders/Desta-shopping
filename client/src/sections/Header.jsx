@@ -10,8 +10,8 @@ function Header() {
         <NavbarComp
     navLinks={[
         { title: 'Home', url: '/' },
-        { title: 'Gift offers', url: '/gift-offers' },
-        { title: 'FAQ', url: '/faq' },
+        { title: 'Gift offers', url: '/search-listView' },
+        { title: 'cart', url: '/cart' },
         { title: 'Products', url: '/products' },
      
         { title: 'Contact', url: '/contact' },
