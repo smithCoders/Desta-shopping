@@ -1,12 +1,13 @@
 import BlockItem from "../components/BlockItem"
 import Deals from "../components/Deals"
-import Header from "../components/Header"
-import Hero from "../components/Hero"
+import Header from "../sections/Header"
+import Hero from "../sections/Hero"
 import Newsletter from "../components/Newsletter"
 import OutDoors from "../components/OutDoors"
 import Inquiry from "../components/inquiry"
 import Recommendation_Section from "../sections/Recommendation_Section"
 import Service_Section from "../sections/Service_Section"
+import DealSection from "../sections/DealSection"
 
 
 function Homepage() {
@@ -16,7 +17,7 @@ function Homepage() {
                 <Header/>
           
            <Hero/> 
-           <Deals/>
+           <DealSection/>
            <OutDoors/>
            <BlockItem/>
            <Inquiry/>

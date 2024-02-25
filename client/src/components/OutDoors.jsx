@@ -1,143 +1,56 @@
 import  banner from "/Group 969.png"
 import { Button} from 'flowbite-react';
 import i1 from "/10.jpg"
+import Item from "./OutdoorItem";
+
 function OutDoors() {
+    const data = [
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        { title: 'Soft chairs', price: 15, image: i1 },
+        // Add more objects as needed
+    ];
+    const column1 = data.slice(0, 5);
+    const column2 = data.slice(5);
+
     return (
         <div className="max-w-[1180px] h-[257px] flex    ml-[32px]  mb-6">
-            {/* col-1 */}
+            {/* Column 1 */}
             <div className="w-[280px] h-[257px] relative">
-                <img src={banner} className="w-full h-auto"/>
+                <img src={banner} className="w-full h-auto" alt="Banner" />
                 <div className="absolute top-8 left-4">
                     <p className="text-xl font-semibold mb-4">
-                        <span className="block">Home and  </span>
-                        <span>Out doors</span>
+                        <span className="block">Home and</span>
+                        <span>Outdoors</span>
                     </p>
-                    <Button  className="text-black bg-white  ">Source Now</Button>
-
+                    <Button className="text-black bg-white">Source Now</Button>
                 </div>
-
-                
             </div>
-            {/* col-2 */}
+            {/* Column 2 */}
             <div className="w-[900px] h-[257px] grid grid-cols-1">
-                
-                    <div className="flex border border-gray-300 ">
-                          {/* grid-1 */}
-                        
-
-    {/* Grid-1 */}
-    <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                    
-                        
-                        
-                          {/* grid-2 */}
-                     <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                         {/* grid-3 */}
-                   <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                          {/* grid-4 */}
-                     <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                       
-                    
-                    </div>
-
-                   {/* col-2 */}
-                   <div className="flex ">
-                          {/* grid-1 */}
-                      <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                        
-                        
-                          {/* grid-2 */}
-                    <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                         {/* grid-3 */}
-                     <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                          {/* grid-4 */}
-                   <div className="flex w-[223px] h-[127px] relative">
-      {/* Items name */}
-      <div className="flex flex-col ml-6 gap-3 mt-4">
-        <p className="text-[#1C1C1C]">Soft chairs</p>
-        <p className="text-sm text-gray-500"><span className="block">From</span> 15USD</p>
-      </div>
-      <img src={i1} className="w-[82px] h-[82px] absolute bottom-0 right-0" />
-    </div>
-    {/* Vertical line */}
-    <div className="border-l border-gray-300 h-full"></div>
-                     
-                   
-                    </div>
-                
-
-             
-
+                {/* First Column */}
+                <div className="flex  gap-4 border border-gray-300">
+                    {column1.map((item, index) => (
+                        <Item key={index} title={item.title} price={item.price} image={item.image} />
+                    ))}
+                </div>
+                {/* Second Column */}
+                <div className="flex ">
+                    {column2.map((item, index) => (
+                        <Item key={index} title={item.title} price={item.price} image={item.image} />
+                    ))}
+                </div>
             </div>
-            <div>
-
-            </div>
-            
         </div>
-    )
+    );
 }
 
-export default OutDoors
+export default OutDoors;
+
