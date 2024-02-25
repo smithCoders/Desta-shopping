@@ -1,18 +1,17 @@
-import BlockItem from "../components/BlockItem"
-import Deals from "../components/Deals"
+import BlockItem from "../sections/BlockItem"
 import Header from "../sections/Header"
 import Hero from "../sections/Hero"
 import Newsletter from "../components/Newsletter"
-import OutDoors from "../components/OutDoors"
-import Inquiry from "../components/inquiry"
+import OutDoors from "../sections/OutDoors"
+import Inquiry from "../sections/inquiry"
 import Recommendation_Section from "../sections/Recommendation_Section"
 import Service_Section from "../sections/Service_Section"
 import DealSection from "../sections/DealSection"
-
+import FooterComp  from "../sections/Footer"
 
 function Homepage() {
     return (
-        <div>
+        <div className="overflow-hidden">
               <div className="px-[96px] py-0" >
                 <Header/>
           
@@ -26,6 +25,7 @@ function Homepage() {
           
         </div>
 <Newsletter/>
+<FooterComp/>
 
         </div>
       
